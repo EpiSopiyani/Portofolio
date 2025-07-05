@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Absensi Sederhana</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f9f9f9; }
+    h2 { color: #333; }
+    input, button { padding: 8px; margin: 5px 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #eee; }
+  </style>
+</head>
+<body>
+
+<h2>Form Absensi Siswa</h2>
+
+<label>Nama:</label><br>
+<input type="text" id="nama" placeholder="Masukkan nama siswa"><br>
+
+<button onclick="submitAbsensi()">Submit</button>
+
+<h3>Data Absensi</h3>
+<table id="tabelAbsensi">
+  <tr>
+    <th>No</th>
+    <th>Nama</th>
+    <th>Waktu</th>
+  </tr>
+</table>
+
+<script>
+  let no = 1;
+
+  function submitAbsensi() {
+    const nama = document.getElementById("nama").value.trim();
+    if (!nama) {
+      alert("Nama tidak boleh kosong!");
+      return;
+    }
+
+    const waktu = new Date().toLocaleString();
+
+    const tabel = document.getElementById("tabelAbsensi");
+    const baris = tabel.insertRow();
+    baris.insertCell(0).innerText = no++;
+    baris.insertCell(1).innerText = nama;
+    baris.insertCell(2).innerText = waktu;
+
+    document.getElementById("nama").value = "";
+  }
+</script>
+
+</body>
+</html>
