@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Absensi Guru</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #fff0f5;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d63384;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ffc0cb;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hasil {
+      margin-top: 30px;
+      background-color: #ffe4ec;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Web Absensi Guru</h1>
+
+  <form id="formAbsensi">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Guru</th>
+          <th>Kehadiran</th>
+        </tr>
+      </thead>
+      <tbody id="dataGuru">
+        <!-- Data guru akan muncul di sini -->
+      </tbody>
+    </table>
+    <div style="text-align:center;">
+      <button type="submit">Simpan Absensi</button>
+    </div>
+  </form>
+
+  <div class="hasil" id="hasilAbsensi"></div>
+
+  <script>
+    const guru = ["Bu Amira","Bu Cinta", "Pak Haris", "Pak Hasbi", "Pak Rudi", "Bu Rina", "Pak Yanto"];
+    const tbody = document.getElementById("dataGuru");
+
+    guru.forEach((nama, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${nama}</td>
+        <td>
+          <select name="absen_${index}">
+            <option value="Hadir">Hadir</option>
+            <option value="Izin">Izin</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+          </select>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    document.getElementById("formAbsensi").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const hasil = document.getElementById("hasilAbsensi");
+      hasil.innerHTML = "<h3>Hasil Absensi:</h3><ul>";
+
+      guru.forEach((nama, index) => {
+        const status = document.querySelector(`select[name="absen_${index}"]`).value;
+        hasil.innerHTML += `<li>${nama} - <strong>${status}</strong></li>`;
+      });
+
+      hasil.innerHTML += "</ul>";
+    });
+  </script>
+
+</body>
+</html>
